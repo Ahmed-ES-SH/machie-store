@@ -11,6 +11,8 @@ import {
   FaBlog,
   FaEnvelope,
 } from "react-icons/fa";
+import { FaShop } from "react-icons/fa6";
+import { MdOutlineLaptopMac } from "react-icons/md";
 
 export const linksLeft: string[] = [
   "About Us",
@@ -54,13 +56,19 @@ export const mainlinks = [
     icon: FaHome,
   },
   {
+    title: "Shop",
+    to: "/shop",
+    icon: FaShop,
+  },
+  {
     title: "Cell Phones",
-    to: "/cellphones",
+    to: "/shop/cellphones",
     icon: FaMobileAlt,
   },
   {
-    title: "HeadPhones",
-    icon: FaHeadphones,
+    title: "Laptops",
+    to: "/shop/Laptops",
+    icon: MdOutlineLaptopMac,
   },
   {
     title: "Blog",

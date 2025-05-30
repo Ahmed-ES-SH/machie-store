@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
@@ -6,13 +7,10 @@ import { ProductType } from "@/app/types/productType";
 import DummyPagination from "../../_global/DummyPagination";
 import { AiOutlineLoading } from "react-icons/ai";
 import { motion } from "framer-motion";
+import { useVariables } from "@/app/context/VariablesContext";
 
-interface Props {
-  categories: string[];
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
-}
-
-export default function ShopProducts({ categories, setCategories }: Props) {
+export default function ShopProducts() {
+  const { categories, setCategories } = useVariables();
   const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -60,7 +58,7 @@ export default function ShopProducts({ categories, setCategories }: Props) {
         {categories.length > 0 && (
           <div className="w-[97%] m-auto h-fit py-4 px-2">
             <ul className="flex items-center gap-2 flex-wrap">
-              {categories.map((cat, index) => (
+              {categories.map((cat: any, index) => (
                 <li
                   key={index}
                   onClick={() =>
@@ -68,10 +66,10 @@ export default function ShopProducts({ categories, setCategories }: Props) {
                       prev.filter((_, ine) => ine !== index)
                     )
                   }
-                  className="cursor-pointer whitespace-nowrap text-[14px] font-light flex items-center gap-2 rounded-md px-2 py-1 border"
+                  className="cursor-pointer whitespace-nowrap text-[14px] font-light flex items-center gap-2 rounded-md px-2 py-1 border border-gray-200 hover:bg-gray-200 duration-300"
                 >
-                  <FaTimes width={16} />
-                  <p>{cat}</p>
+                  <FaTimes className="text-red-200" />
+                  <p>{cat.name}</p>
                 </li>
               ))}
             </ul>

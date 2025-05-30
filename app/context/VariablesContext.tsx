@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { categoryType } from "./DataContext";
 
 interface VariablesType {
   width: number;
@@ -18,6 +19,8 @@ interface VariablesType {
   setOddBannerHeight: Dispatch<SetStateAction<number>>;
   openDropdown: string;
   setOpenDropdown: Dispatch<SetStateAction<string>>;
+  categories: categoryType[];
+  setCategories: Dispatch<SetStateAction<categoryType[]>>;
 }
 
 interface propsType {
@@ -32,6 +35,7 @@ export default function VariablesProvider({ children }: propsType) {
   const [oddBannerHeight, setOddBannerHeight] = useState(0);
   const [mobailMenu, setMobailMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+  const [categories, setCategories] = useState<categoryType[]>([]);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -53,6 +57,8 @@ export default function VariablesProvider({ children }: propsType) {
         setOddBannerHeight,
         openDropdown,
         setOpenDropdown,
+        categories,
+        setCategories,
       }}
     >
       {children}

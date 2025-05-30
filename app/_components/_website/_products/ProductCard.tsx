@@ -153,7 +153,7 @@ export default function ProductCard({ product }: props) {
         )}
 
         {/* Product title */}
-        <h3 className="text-blue-600 font-medium text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200">
+        <h3 className="text-blue-600 font-medium text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200 min-h-[50px]">
           {product.title}
         </h3>
 
@@ -191,7 +191,7 @@ export default function ProductCard({ product }: props) {
         </div>
 
         {/* Category and tags */}
-        <div className="mb-3">
+        <div className="mb-3 min-h-[40px]">
           <div className="flex flex-wrap gap-1">
             <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
               {product.category}

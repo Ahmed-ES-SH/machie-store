@@ -41,11 +41,10 @@ export default function DummyPagination({ page, setPage, totalPages }: Props) {
     return pages;
   };
 
-  // استخدم useEffect للتمرير عند تغيير الصفحة
   useEffect(() => {
     window.scrollTo({
       top: 600,
-      behavior: "smooth", // تمرير ناعم
+      behavior: "smooth",
     });
   }, [page]);
 

@@ -4,26 +4,26 @@ import React from "react";
 export default function FirstShopSection() {
   return (
     <>
-      <section className="f-banner relative h-[100px] max-md:h-fit mx-auto dual-center max-md:flex-col max-md:gap-y-4 max-md:items-start bg-normal ">
-        <div className="w-full">
-          <p className="font-light whitespace-normal ">
-            Shop and
+      <section className="f-banner bg-[#f5f5f7] relative min-h-[100px] w-full mx-auto dual-center flex-wrap gap-4 max-lg:items-start bg-normal ">
+        <div className="w-full  flex-1">
+          <div className="font-light whitespace-normal flex items-center flex-wrap gap-2">
+            <p>SHOP AND</p>
             <span className="px-2 bg-yellow-400 text-black rounded-full font-normal">
-              Save Big on Hottest
+              SAVE BIG ON HOTTEST
             </span>
-            Products
-          </p>
+            <p>PRODUCTS</p>
+          </div>
         </div>
-        <div className="center max-md:flex-col max-md:w-full w-1/2">
-          <div>
-            <p className="text-right max-md:text-left">
+        <div className="ml-auto flex items-center flex-wrap gap-4 w-fit">
+          <div className="flex flex-col gap-1">
+            <p className="">
               from <span className="text-3xl text-red-500">$79.00</span>
             </p>
             <p className="font-light text-[15px] whitespace-nowrap">
               Don't miss this special opportunity today.
             </p>
           </div>
-          <button className="btn-shop max-md:ml-auto">Shop now</button>
+          <button className="btn-shop  max-md:ml-auto">Shop now</button>
         </div>
       </section>
       <section className="s-banner relative grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1  gap-4 mt-4 ">
