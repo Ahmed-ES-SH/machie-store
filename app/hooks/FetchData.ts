@@ -5,9 +5,6 @@ export default async function FetchData(api: string, paginationState: boolean) {
       headers: {
         accept: "application/json",
       },
-      next: {
-        revalidate: 300,
-      },
     };
 
     const response = await fetch(`https://dummyjson.com${api}`, options);

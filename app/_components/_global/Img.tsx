@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import React from "react";
 
@@ -9,6 +10,8 @@ interface props {
   height?: number;
   loading?: "lazy" | "eager" | undefined;
   priority?: boolean;
+  onLoad?: () => void;
+  ref?: any;
 }
 
 export default function Img({
@@ -19,6 +22,8 @@ export default function Img({
   alt = "image",
   loading = "lazy",
   priority = false,
+  onLoad,
+  ref,
 }: props) {
   return (
     <>
@@ -30,6 +35,8 @@ export default function Img({
         height={height}
         loading={loading}
         priority={priority}
+        onLoad={onLoad}
+        ref={ref}
       />
     </>
   );

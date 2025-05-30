@@ -1,12 +1,12 @@
 import React from "react";
-import Img from "../../../_global/Img";
+import Img from "../../../../_global/Img";
 import { dualBannerDetails } from "@/constants/constantsDetails";
 
 export default function DualBanner() {
   return (
     <div className="grid grid-cols-2 max-md:grid-cols-1 gap-2">
       {dualBannerDetails.map((item, index) => (
-        <div key={index} className="relative h-[30vh] w-full">
+        <div key={index} className="relative h-[35vh] w-full">
           <Img
             src={item.img}
             alt="img-banner"

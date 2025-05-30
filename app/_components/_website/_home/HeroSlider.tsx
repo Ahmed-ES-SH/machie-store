@@ -14,7 +14,7 @@ export default function HeroSlider() {
     <>
       <div
         className={` ${
-          isOpen ? "w-[80%]" : "w-full"
+          isOpen ? "xl:w-[80%] w-full" : "w-full"
         } shadow-lg duration-700  rounded-md  mt-2`}
       >
         <Swiper

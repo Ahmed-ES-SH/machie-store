@@ -30,6 +30,22 @@ body {
   .c-container {
     @apply xl:w-[80%] lg:w-[90%] w-full px-[15px] mx-auto;
   }
+
+  .dual-center {
+    @apply flex items-center justify-between px-4 py-2 rounded-md shadow-md w-full;
+  }
+
+  .center {
+    @apply flex items-center gap-4;
+  }
+
+  .btn-shop {
+    @apply py-2 px-3 bg-sky-400 rounded-full max-lg:rounded-md text-white;
+  }
+
+  .bg-same {
+    @apply w-full h-[230px]  bg-cover bg-center object-contain relative rounded-md overflow-hidden;
+  }
 }
 
 a,

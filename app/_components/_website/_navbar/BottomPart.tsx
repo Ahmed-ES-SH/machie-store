@@ -1,10 +1,10 @@
 import { mainlinks } from "@/constants/Links";
 import Link from "next/link";
 import React from "react";
-import ShopHover from "./ShopHover";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaPercent } from "react-icons/fa";
 import Departmentsbtn from "./Departmentsbtn";
+import { FaShop } from "react-icons/fa6";
 
 export default function BottomPart() {
   return (
@@ -16,15 +16,15 @@ export default function BottomPart() {
         {/* middle-links */}
         <div className="xl:flex-1/2 w-fit mx-auto " id="middle-links">
           <ul className="flex items-center  gap-3">
-            <li className="flex items-center  gap-3  px-4 group cursor-pointer ">
+            <Link
+              href={"/shop"}
+              className="flex items-center  gap-3  px-4 group cursor-pointer "
+            >
               <p className="text-gray-700 group-hover:text-primary-blue duration-200">
                 Shop
               </p>
-              <IoIosArrowDown className="text-icon-color group-hover:text-black duration-200" />
-              {/* ShopHover   */}
-              <ShopHover />
-              {/* ////////////////////////// */}
-            </li>
+              <FaShop className="text-icon-color group-hover:text-black duration-200" />
+            </Link>
             {mainlinks.map((link, index) => (
               <Link
                 href={link.to ? link.to : "#"}

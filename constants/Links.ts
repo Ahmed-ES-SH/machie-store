@@ -55,7 +55,7 @@ export const mainlinks = [
   },
   {
     title: "Cell Phones",
-    to: "cell-phones",
+    to: "/cellphones",
     icon: FaMobileAlt,
   },
   {

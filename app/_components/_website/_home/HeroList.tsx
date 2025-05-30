@@ -1,20 +1,12 @@
 "use client";
-import { useVariables } from "@/app/context/VariablesContext";
 import { useListToggle } from "@/app/store/ListToggle";
 import { menuData } from "@/constants/constantsDetails";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 import { MdChevronRight } from "react-icons/md";
 
 export default function HeroList() {
-  const { isOpen, closeToggle } = useListToggle();
-  const { width } = useVariables();
-
-  useEffect(() => {
-    if (width <= 1280) {
-      closeToggle();
-    }
-  }, [closeToggle, width]);
+  const { isOpen } = useListToggle();
 
   return (
     <AnimatePresence>
@@ -24,7 +16,7 @@ export default function HeroList() {
           animate={{ opacity: 1, height: "61vh" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="origin-top shrink-0 w-[280px] h-[61vh] bg-white rounded-lg shadow-lg overflow-hidden "
+          className="origin-top shrink-0 w-[280px] h-[61vh] bg-white rounded-lg shadow-lg overflow-hidden max-xl:hidden"
         >
           <div className="divide-y divide-gray-100">
             {menuData.map((item, index) => (
