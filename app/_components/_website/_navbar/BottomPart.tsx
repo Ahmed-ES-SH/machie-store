@@ -1,9 +1,8 @@
 import { mainlinks } from "@/constants/Links";
 import Link from "next/link";
 import React from "react";
-import { IoIosArrowDown } from "react-icons/io";
-import { FaPercent } from "react-icons/fa";
 import Departmentsbtn from "./Departmentsbtn";
+import HoverSection from "./HoverSection";
 
 export default function BottomPart() {
   return (
@@ -31,18 +30,7 @@ export default function BottomPart() {
         </div>
 
         {/* //////////////////// right element */}
-        <div className="flex items-center gap-3 max-2xl:hidden">
-          <div className=" flex items-center justify-center w-[25px] h-[25px] rounded-full bg-red-500 border-white border border-dashed ">
-            <FaPercent className="text-white size-3" />
-          </div>
-          <div className="content text-[12px]">
-            <p className="font-thin text-gray-400 whitespace-nowrap">
-              Only this weekend
-            </p>
-            <h1 className="whitespace-nowrap">Super Discount</h1>
-          </div>
-          <IoIosArrowDown />
-        </div>
+        <HoverSection />
       </div>
     </>
   );

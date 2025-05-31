@@ -4,9 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, Autoplay } from "swiper/modules";
 import Img from "../../_global/Img";
 import { SliderContent } from "@/constants/constantsDetails";
+import { useListToggle } from "@/app/store/ListToggle";
+
 import "swiper/css";
 import "swiper/css/effect-creative";
-import { useListToggle } from "@/app/store/ListToggle";
 
 export default function HeroSlider() {
   const { isOpen } = useListToggle();

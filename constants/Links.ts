@@ -72,10 +72,12 @@ export const mainlinks = [
   },
   {
     title: "Blog",
+    to: "/blog",
     icon: FaBlog,
   },
   {
     title: "Contact",
+    to: "/contact",
     icon: FaEnvelope,
   },
 ];

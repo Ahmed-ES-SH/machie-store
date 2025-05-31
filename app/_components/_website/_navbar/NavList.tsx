@@ -3,12 +3,16 @@ import { useListToggle } from "@/app/store/ListToggle";
 import { menuData } from "@/constants/constantsDetails";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { MdChevronRight } from "react-icons/md";
 
 export default function NavList() {
   const pathname = usePathname();
-  const { isOpen } = useListToggle();
+  const { isOpen, setIsOpen } = useListToggle();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
 
   if (pathname === "/") return null;
 

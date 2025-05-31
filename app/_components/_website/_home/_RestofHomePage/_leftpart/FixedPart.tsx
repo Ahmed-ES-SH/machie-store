@@ -11,7 +11,7 @@ export default function FixedPart() {
     <>
       <div
         style={{
-          height: width >= 1280 ? `${currentHeight + 260}px` : "fit-content",
+          height: width >= 1280 ? `${currentHeight + 310}px` : "fit-content",
         }}
         className="w-full relative"
       >

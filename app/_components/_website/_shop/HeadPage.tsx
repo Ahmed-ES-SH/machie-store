@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Dropdown from "./Dropdown";
 import { BsArrowDown } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -22,9 +22,9 @@ function toggleShowingDropdown(
 
 export default function HeadPage() {
   const sortLines = [
+    "Sort by latest",
     "Sort by popularity",
     "Sort by average rating",
-    "Sort by latest",
     "Sort by price : low to high",
     "Sort by price : hight to low",
   ];
@@ -32,6 +32,19 @@ export default function HeadPage() {
   const showing = ["16 items", "32 items", "48 items", "64 items"];
 
   const { openDropdown, setOpenDropdown } = useVariables();
+
+  const [sortLine, setSortLine] = useState(sortLines[0]);
+  const [showsNumber, setShowsNumber] = useState(showing[0]);
+
+  const selectSortLine = (text: string) => {
+    setSortLine(text);
+    setOpenDropdown("");
+  };
+
+  const selectNumberOfShows = (text: string) => {
+    setShowsNumber(text);
+    setOpenDropdown("");
+  };
 
   return (
     <>
@@ -43,11 +56,12 @@ export default function HeadPage() {
               onClick={() => toggleSortDropdown(openDropdown, setOpenDropdown)}
               className="flex items-center gap-3 cursor-pointer hover:text-primary-blue duration-300"
             >
-              <p className="whitespace-normal">Sort by Latest</p>
+              <p className="whitespace-normal">{sortLine}</p>
               <BsArrowDown className="text-icon-color mr-2" width={12} />
             </div>
             {openDropdown === "sort" && (
               <Dropdown
+                onClick={selectSortLine}
                 lines={sortLines}
                 isOpen={true}
                 onClose={() => setOpenDropdown("")}
@@ -64,12 +78,13 @@ export default function HeadPage() {
             >
               <p>Showing : </p>
               <span className="flex items-center gap-2">
-                16 items{" "}
+                {showsNumber}
                 <BsArrowDown className="text-gray-300 mr-2" width={12} />
               </span>
             </div>
             {openDropdown === "showing" && (
               <Dropdown
+                onClick={selectNumberOfShows}
                 lines={showing}
                 isOpen={true}
                 onClose={() => setOpenDropdown("")}

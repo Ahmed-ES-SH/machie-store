@@ -1,6 +1,8 @@
 import {
   createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -20,8 +22,10 @@ interface DataContextType {
   products: ProductType[];
   phones: ProductType[];
   categoryData: ProductType[];
-  categories: categoryType[];
+  categories: categoryType[] | null;
   loading: boolean;
+  randomProducts: ProductType[];
+  setRandomProducts: Dispatch<SetStateAction<ProductType[]>>;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -34,13 +38,15 @@ export default function DataProvider({ children }: ChildrenType) {
   const { categories: selectedCategories } = useVariables();
   const [products, setProducts] = useState<ProductType[]>([]);
   const [phones, setPhones] = useState<ProductType[]>([]);
-  const [currentCategory, setCurrentCategory] = useState<categoryType | null>(
-    null
-  );
+
+  const [randomProducts, setRandomProducts] = useState<ProductType[]>([]);
+
   const [categoryData, setCategoryData] = useState<ProductType[]>([]);
   const { data } = useFetchData("/products");
   const { data: PhonesData } = useFetchData("/products/category/smartphones");
-  const { data: categories, loading } = useFetchData("/products/categories");
+  const { data: categories, loading } = useFetchData<categoryType[]>(
+    "/products/categories"
+  );
 
   useEffect(() => {
     if (data) setProducts(data.products);
@@ -48,27 +54,55 @@ export default function DataProvider({ children }: ChildrenType) {
   }, [PhonesData, data]);
 
   useEffect(() => {
-    setCurrentCategory(selectedCategories[0]);
-    const FetchData = async () => {
+    const fetchData = async () => {
+      if (selectedCategories.length === 0) {
+        setCategoryData([]);
+        return;
+      }
+
+      const uniqueCategories = Array.from(
+        new Map(selectedCategories.map((cat) => [cat.slug, cat])).values()
+      );
+
       try {
-        if (!currentCategory) return;
-        const res = await axios.get(
-          `https://dummyjson.com/products/category/${currentCategory.slug}`
+        const allProductsArrays = await Promise.all(
+          uniqueCategories.map((cat) =>
+            axios
+              .get(`https://dummyjson.com/products/category/${cat.slug}`)
+              .then((res) => res.data.products)
+          )
         );
-        setCategoryData(res.data.products);
+
+        const mergedProducts = allProductsArrays.flat();
+
+        setCategoryData(mergedProducts);
       } catch (error) {
         console.log(error);
       }
     };
-    if (currentCategory) FetchData();
-    if (selectedCategories.length == 0) setCategoryData([]);
-  }, [currentCategory, selectedCategories]);
 
-  console.log(categoryData);
+    fetchData();
+  }, [selectedCategories]);
+
+  useEffect(() => {
+    const randomSixProducts = phones
+      ?.slice()
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 6);
+    setRandomProducts(randomSixProducts);
+  }, [phones]);
 
   return (
     <DataContext.Provider
-      value={{ products, phones, categories, loading, categoryData }}
+      value={{
+        products,
+        phones,
+        categories,
+        loading,
+        categoryData,
+        randomProducts,
+        setRandomProducts,
+      }}
     >
       {children}
     </DataContext.Provider>

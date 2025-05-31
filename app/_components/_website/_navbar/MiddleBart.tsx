@@ -1,16 +1,12 @@
 import React from "react";
 import Img from "../../_global/Img";
-import { CiSearch } from "react-icons/ci";
-import FetchData from "@/app/hooks/FetchData";
-import Categories from "./Categories";
 import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import Link from "next/link";
 import { BsMinecart } from "react-icons/bs";
 import Barsbtn from "./Barsbtn";
+import InputSearch from "./InputSearch";
 
 export default async function MiddleBart() {
-  const categories = await FetchData("/products/categories", false);
-
   return (
     <>
       <div className="w-full flex items-center justify-between gap-4 mt-6">
@@ -25,28 +21,7 @@ export default async function MiddleBart() {
             loading="eager"
           />
         </div>
-        <div
-          id="input"
-          className="flex items-center   px-2 h-[50px] flex-1/2 max-xl:hidden"
-        >
-          <div className="border border-gray-300 w-full flex h-full rounded-l-lg">
-            {/* Categories Dropdown */}
-            <Categories data={categories} />
-            {/* ///////////////////// */}
-            <div className="flex items-center gap-4 p-2 w-full">
-              <CiSearch className="size-7 text-icon-color" />
-              <input
-                placeholder="Search your favorite product..."
-                type="text"
-                name="search"
-                className="w-full border-none outline-none"
-              />
-            </div>
-          </div>
-          <button className="search-btn h-full px-4 bg-dark-btn rounded-r-lg text-white flex items-center justify-center">
-            Search
-          </button>
-        </div>
+        <InputSearch />
         <div id="icons" className="flex items-center gap-4">
           {/* Signin Link */}
           <Link

@@ -53,7 +53,7 @@ export function BrandLinks() {
     <div className="flex flex-wrap gap-x-3 gap-y-2">
       {links.map((link, index) => (
         <div key={link.name} className="flex items-center">
-          <BrandLink href={link.href}>{link.name}</BrandLink>
+          <BrandLink href={"#"}>{link.name}</BrandLink>
           {index < links.length - 1 && (
             <span className="text-muted-foreground ml-3">|</span>
           )}

@@ -6,9 +6,10 @@ interface Props {
   lines: string[];
   isOpen: boolean;
   onClose: () => void;
+  onClick: (text: string) => void;
 }
 
-export default function Dropdown({ lines, isOpen, onClose }: Props) {
+export default function Dropdown({ lines, isOpen, onClose, onClick }: Props) {
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   // إغلاق عند الضغط خارج العنصر
@@ -38,6 +39,7 @@ export default function Dropdown({ lines, isOpen, onClose }: Props) {
         >
           {lines.map((line: string, index: number) => (
             <li
+              onClick={() => onClick(line)}
               key={index}
               className="py-2 px-1 whitespace-nowrap cursor-pointer hover:bg-sky-500 hover:text-white rounded-sm duration-200"
             >

@@ -51,54 +51,58 @@ export default function DummyPagination({ page, setPage, totalPages }: Props) {
   const pages = getPageNumbers();
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="flex justify-center items-center gap-2">
-        <button
-          onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          disabled={page === 1}
-          className="p-2 rounded-md bg-blue-600 text-white disabled:bg-gray-400 flex items-center justify-center"
-          aria-label="Previous Page"
-        >
-          <BsChevronLeft size={18} />
-        </button>
-
-        {pages.map((p, idx) => {
-          if (typeof p === "string") {
-            return (
-              <span
-                key={idx}
-                className="px-3 py-1 select-none text-gray-500 cursor-default"
-              >
-                &hellip;
-              </span>
-            );
-          }
-
-          return (
+    <>
+      {totalPages > 1 && (
+        <div className="max-w-4xl mx-auto p-4">
+          <div className="flex justify-center items-center gap-2">
             <button
-              key={idx}
-              onClick={() => setPage(p)}
-              className={`px-3 py-1 rounded-md ${
-                p === page
-                  ? "bg-blue-600 text-white font-semibold"
-                  : "hover:bg-blue-100"
-              }`}
-              aria-current={p === page ? "page" : undefined}
+              onClick={() => setPage((p) => Math.max(p - 1, 1))}
+              disabled={page === 1}
+              className="p-2 rounded-md bg-blue-600 text-white disabled:bg-gray-400 flex items-center justify-center"
+              aria-label="Previous Page"
             >
-              {p}
+              <BsChevronLeft size={18} />
             </button>
-          );
-        })}
 
-        <button
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          disabled={page === totalPages}
-          className="p-2 rounded-md bg-blue-600 text-white disabled:bg-gray-400 flex items-center justify-center"
-          aria-label="Next Page"
-        >
-          <BsChevronRight size={18} />
-        </button>
-      </div>
-    </div>
+            {pages.map((p, idx) => {
+              if (typeof p === "string") {
+                return (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 select-none text-gray-500 cursor-default"
+                  >
+                    &hellip;
+                  </span>
+                );
+              }
+
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setPage(p)}
+                  className={`px-3 py-1 rounded-md ${
+                    p === page
+                      ? "bg-blue-600 text-white font-semibold"
+                      : "hover:bg-blue-100"
+                  }`}
+                  aria-current={p === page ? "page" : undefined}
+                >
+                  {p}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              disabled={page === totalPages}
+              className="p-2 rounded-md bg-blue-600 text-white disabled:bg-gray-400 flex items-center justify-center"
+              aria-label="Next Page"
+            >
+              <BsChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

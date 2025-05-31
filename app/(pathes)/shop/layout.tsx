@@ -1,4 +1,5 @@
 import Breadcrumb from "@/app/_components/_global/Breadcrumb";
+import SliderOfRecommendedProducts from "@/app/_components/_website/_products/SliderOfRecommendedProducts";
 import FirstShopSection from "@/app/_components/_website/_shop/FirstShopSection";
 import HeadPage from "@/app/_components/_website/_shop/HeadPage";
 import ProductsFilter from "@/app/_components/_website/_shop/ProductsFilter";
@@ -19,6 +20,7 @@ export default function ShopLayout({ children }: layoutProps) {
           <ProductsFilter />
           {children}
         </div>
+        <SliderOfRecommendedProducts />
       </div>
     </>
   );

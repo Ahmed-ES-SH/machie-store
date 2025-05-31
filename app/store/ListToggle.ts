@@ -3,7 +3,7 @@ import { create } from "zustand";
 type ToggleStore = {
   isOpen: boolean;
   toggle: () => void;
-  closeToggle: () => void;
+  setIsOpen: (value: boolean) => void;
 };
 
 export const useListToggle = create<ToggleStore>((set) => ({
@@ -12,5 +12,5 @@ export const useListToggle = create<ToggleStore>((set) => ({
     set((state) => ({
       isOpen: !state.isOpen,
     })),
-  closeToggle: () => set({ isOpen: false }),
+  setIsOpen: (value: boolean) => set({ isOpen: value }),
 }));
