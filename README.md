@@ -118,20 +118,23 @@ This allows rapid development and UI testing before backend integration.
    https://github.com/Ahmed-ES-SH/machie-store.git
 
    # 2. Navigate to the project directory
-   cd machic-project
+   cd machic-store
    ```
 
 # 3. Install dependencies
 
+  ```bash
 npm install
+
+   ```
 
 # 4. Start the development server
 
+```bash
 npm run dev
+  ```
 
-📬 Contact
-Feel free to reach out if you'd like to contribute or collaborate!
 
-👨‍💻 Author
+## 👨‍💻 Author
 Crafted with ❤️ by [Ahmed Ismail]
 Feel free to connect with me or contribute to improve this project!
