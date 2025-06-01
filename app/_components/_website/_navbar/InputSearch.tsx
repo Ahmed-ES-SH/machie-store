@@ -12,9 +12,16 @@ import Img from "../../_global/Img";
 import { FaStar } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiNoEntry } from "react-icons/bi";
+import { useCartStore } from "@/app/store/CartStore";
+import { IoCheckmarkOutline } from "react-icons/io5";
 
 // Search result item component
 function SearchResultItem({ product }: { product: ProductType }) {
+  const { addToCart, cartItems } = useCartStore();
+
+  const isInCart =
+    cartItems && cartItems.some((item) => item.id === product.id);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -54,11 +61,20 @@ function SearchResultItem({ product }: { product: ProductType }) {
           </div>
 
           <motion.button
+            onClick={() => addToCart(product)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="p-2 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200"
+            className={`p-2 ${
+              isInCart
+                ? "bg-green-100 hover:bg-green-200"
+                : "bg-blue-100 hover:bg-blue-200"
+            } rounded-full transition-colors duration-200`}
           >
-            <MdShoppingCart className="w-4 h-4 text-blue-600" />
+            {isInCart ? (
+              <IoCheckmarkOutline className="w-4 h-4 text-green-600" />
+            ) : (
+              <MdShoppingCart className="w-4 h-4 text-blue-600" />
+            )}
           </motion.button>
         </div>
       </div>

@@ -10,7 +10,7 @@ type categoryType = {
 };
 
 interface Props {
-  data: categoryType[];
+  data: categoryType[] | null;
 }
 
 export default function Categories({ data }: Props) {

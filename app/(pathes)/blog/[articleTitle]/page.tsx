@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Loading from "@/app/_components/_global/Loading";
 import ArticleComponent from "@/app/_components/_website/_blog/ArticleComponent";
 import { articles } from "@/constants/Articles";
-import React from "react";
+import React, { Suspense } from "react";
 
 export async function generateMetadata({ searchParams }: any) {
   const articleId = searchParams.articleId;
@@ -17,5 +18,9 @@ export async function generateMetadata({ searchParams }: any) {
 }
 
 export default function ArticlePage() {
-  return <ArticleComponent />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <ArticleComponent />
+    </Suspense>
+  );
 }

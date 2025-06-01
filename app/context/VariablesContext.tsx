@@ -12,6 +12,7 @@ import { categoryType } from "./DataContext";
 
 interface VariablesType {
   width: number;
+  height: number;
   mobailMenu: boolean;
   setMobailMenu: Dispatch<SetStateAction<boolean>>;
   phonesSectionHeight: number;
@@ -32,6 +33,7 @@ const VariablesContext = createContext<VariablesType | null>(null);
 
 export default function VariablesProvider({ children }: propsType) {
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
   const [phonesSectionHeight, setPhonesSectionHeight] = useState(0);
   const [oddBannerHeight, setOddBannerHeight] = useState(0);
   const [mobailMenu, setMobailMenu] = useState(false);
@@ -40,9 +42,11 @@ export default function VariablesProvider({ children }: propsType) {
 
   useEffect(() => {
     setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
 
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
     });
   }, []);
 
@@ -50,6 +54,7 @@ export default function VariablesProvider({ children }: propsType) {
     <VariablesContext.Provider
       value={{
         width,
+        height,
         mobailMenu,
         setMobailMenu,
         phonesSectionHeight,

@@ -11,8 +11,8 @@ export default function NavList() {
   const { isOpen, setIsOpen } = useListToggle();
 
   useEffect(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+    if (pathname !== "/") setIsOpen(false);
+  }, [setIsOpen, pathname]);
 
   if (pathname === "/") return null;
 

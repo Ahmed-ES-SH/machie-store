@@ -5,6 +5,8 @@ import "./globals.css";
 import Navbar from "./_components/_global/Navbar";
 import MobailSideBar from "./_components/_website/_navbar/MobileSidebar";
 import { Footer } from "./_components/_website/_footer/footer";
+import { Toaster } from "sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const RobotoFont = Roboto({
   variable: "--font-roboto",
@@ -24,12 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${RobotoFont.variable} antialiased`}>
-        <ClientLayout>
-          <Navbar />
-          <MobailSideBar />
-          {children}
-          <Footer />
-        </ClientLayout>
+        <ClerkProvider>
+          <ClientLayout>
+            <Navbar />
+            <MobailSideBar />
+            <Toaster richColors position="top-center" />
+            <div className="min-h-screen">{children}</div>
+            <Footer />
+          </ClientLayout>
+        </ClerkProvider>
       </body>
     </html>
   );

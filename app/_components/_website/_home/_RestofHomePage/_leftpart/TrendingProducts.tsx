@@ -1,6 +1,8 @@
 "use client";
 import Img from "@/app/_components/_global/Img";
 import { useData } from "@/app/context/DataContext";
+import { formatTitle } from "@/app/helpers/helpers";
+import Link from "next/link";
 import React from "react";
 
 export default function TrendingProducts() {
@@ -23,9 +25,14 @@ export default function TrendingProducts() {
               alt="image"
             />
             <div className="w-1/2">
-              <h1 className="p-2 text-[13px] max-md:text-[15px] group-hover:text-primary-blue duration-300">
+              <Link
+                href={`/products/${formatTitle(item.title)}?productId=${
+                  item.id
+                }`}
+                className="p-2 text-[13px] max-md:text-[15px] group-hover:text-primary-blue duration-300 hover:underline"
+              >
                 {item.title}
-              </h1>
+              </Link>
               <div className="price flex items-center flex-wrap p-2 gap-3">
                 <h1 className="py-2 text-red-500 text-[18px]">${item.price}</h1>
                 <del className=" text-gray-300 text-[14px]">${item.price}</del>

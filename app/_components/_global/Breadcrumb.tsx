@@ -18,7 +18,7 @@ export default function Breadcrumb() {
   });
 
   return (
-    <nav className="w-full py-4 px-6 bg-gray-100 rounded-md mt-2">
+    <nav className="w-full py-4 px-6 bg-gray-50 rounded-md mt-2">
       <ul className="flex items-center gap-2 text-sm text-gray-600">
         <motion.li
           initial={{ opacity: 0, y: -5 }}

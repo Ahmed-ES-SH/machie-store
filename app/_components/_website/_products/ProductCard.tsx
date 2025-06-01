@@ -5,13 +5,27 @@ import Img from "../../_global/Img";
 import { BiHeart, BiStar } from "react-icons/bi";
 import { useState } from "react";
 import { ProductType } from "@/app/types/productType";
+import Link from "next/link";
+import { formatTitle } from "@/app/helpers/helpers";
+import { useCartStore } from "@/app/store/CartStore";
+import { useWishlistStore } from "@/app/store/WishlistStoreStore";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 
 interface props {
   product: ProductType;
 }
 
 export default function ProductCard({ product }: props) {
+  const { addToCart, cartItems } = useCartStore();
+  const { addToWishlist, wishlistItems, removeFromWishlist } =
+    useWishlistStore();
+
   const [isHovered, setIsHovered] = useState(false);
+
+  const isInCart =
+    !!product && cartItems.some((item) => item.id === product.id);
+  const isInWishList =
+    !!product && wishlistItems.some((item) => item.id === product.id);
 
   // Calculate discounted price
   const discountedPrice =
@@ -38,14 +52,6 @@ export default function ProductCard({ product }: props) {
   };
 
   const stockStatus = getStockStatus();
-
-  const handleAddToCart = () => {
-    console.log("Added to cart:", product.title);
-  };
-
-  const handleQuickView = () => {
-    console.log("Quick view:", product.title);
-  };
 
   // Render stars
   const renderStars = () => {
@@ -120,25 +126,36 @@ export default function ProductCard({ product }: props) {
           className={`absolute right-3 top-16 transform -translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-300 `}
         >
           {/* Heart icon */}
-          <button className="z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200">
-            <BiHeart
-              size={18}
-              className={`${
-                false ? "fill-red-500 text-red-500" : "text-gray-400"
-              } transition-colors duration-200`}
-            />
-          </button>
           <button
-            onClick={handleQuickView}
-            className={`p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all duration-300 ${
+            onClick={
+              isInWishList
+                ? () => removeFromWishlist(product.id)
+                : () => addToWishlist(product)
+            }
+            className={`z-10 p-2  rounded-full shadow-md  transition-colors duration-200 ${
+              isInWishList
+                ? "bg-red-300 hover:bg-red-400 text-white"
+                : "hover:bg-gray-100 bg-white text-gray-400"
+            }`}
+          >
+            {isInWishList ? (
+              <IoHeartDislikeOutline size={18} />
+            ) : (
+              <BiHeart size={18} />
+            )}
+          </button>
+          <Link
+            href={`/products/${formatTitle(product.title)}?productId=${
+              product.id
+            }`}
+            className={`p-2 block bg-white rounded-full shadow-md hover:bg-gray-100 transition-all duration-300 ${
               isHovered
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-8"
             }`}
-            title="Quick View"
           >
             <BsEye size={16} className="text-gray-600" />
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -152,9 +169,14 @@ export default function ProductCard({ product }: props) {
         )}
 
         {/* Product title */}
-        <h3 className="text-blue-600 font-medium text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200 min-h-[50px]">
+        <Link
+          href={`/products/${formatTitle(product.title)}?productId=${
+            product.id
+          }`}
+          className="text-blue-600 font-medium hover:underline text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200 min-h-[50px]"
+        >
           {product.title}
-        </h3>
+        </Link>
 
         {/* Rating */}
         <div className="mb-2">
@@ -242,18 +264,26 @@ export default function ProductCard({ product }: props) {
 
         {/* Add to cart button */}
         <button
-          onClick={handleAddToCart}
+          onClick={() => addToCart(product)}
           disabled={product.stock === 0}
-          className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg font-medium transition-all duration-300 my-3 ${
-            product.stock === 0
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : isHovered
-              ? "bg-blue-600 text-white hover:bg-blue-700"
-              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-          }`}
+          className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg font-medium transition-all duration-300 my-3
+    ${
+      product.stock === 0
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : isInCart
+        ? "bg-green-100 text-green-700 border border-green-500"
+        : isHovered
+        ? "bg-blue-600 text-white hover:bg-blue-700"
+        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+    }
+  `}
         >
           <CgShoppingCart size={16} />
-          {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+          {product.stock === 0
+            ? "Out of Stock"
+            : isInCart
+            ? "✓ In Cart"
+            : "Add to Cart"}
         </button>
       </div>
     </div>

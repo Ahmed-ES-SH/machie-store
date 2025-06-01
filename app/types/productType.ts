@@ -41,4 +41,5 @@ export interface ProductType {
   title: string;
   warrantyInformation: string;
   weight: number;
+  quantity: number;
 }

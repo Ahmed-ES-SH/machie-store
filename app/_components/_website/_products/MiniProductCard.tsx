@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { BiHeart, BiStar } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import Img from "../../_global/Img";
+import Link from "next/link";
+import { formatTitle } from "@/app/helpers/helpers";
 
 interface props {
   product: ProductType;
@@ -75,7 +77,6 @@ export default function MiniProductCard({ product }: props) {
       <div className="relative overflow-hidden bg-gray-100">
         <Img
           src={
-            product.thumbnail ||
             product.images?.[0] ||
             "https://via.placeholder.com/300x200?text=No+Image"
           }
@@ -113,9 +114,14 @@ export default function MiniProductCard({ product }: props) {
             {product.brand}
           </div>
         )}
-        <h3 className="text-blue-600 font-medium text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200 min-h-[50px]">
+        <Link
+          href={`/products/${formatTitle(product.title)}?productId=${
+            product.id
+          }`}
+          className="text-blue-600 font-medium text-sm mb-2 line-clamp-2 hover:text-blue-800 transition-colors duration-200 min-h-[50px] hover:underline "
+        >
           {product.title}
-        </h3>
+        </Link>
         <div className="mb-2">
           {renderStars()}
           <div className="text-xs text-gray-500 mt-1">
