@@ -53,42 +53,41 @@ This project uses mock product data from [DummyJSON](https://dummyjson.com/produ
 
 This allows for fast prototyping and UI development without needing a live backend.
 
----
-
 ## 📁 Folder Structure
 
 The project is organized using a scalable and modular structure to keep code maintainable:
 
+```
 MACHIE-PROJECT/
 ├── .clerk/
 ├── .next/
 ├── .vscode/
 ├── app/
-│ ├── \_components/
-│ │ ├── \_auth/ # Auth-related components
-│ │ ├── \_global/ # Shared/global UI components
-│ │ └── \_website/ # Website-specific components
-│ ├── (auth)/ # Auth routes
-│ ├── (pathes)/ # Dynamic/custom route paths
-│ ├── api/ # API route handlers
-│ ├── context/ # React context providers
-│ ├── helpers/ # Utility helper functions
-│ ├── hooks/ # Custom React hooks
-│ ├── store/ # Zustand state store
-│ ├── types/ # TypeScript types
-│ ├── utilities/ # General utility functions/files
-│ ├── favicon.ico
-│ ├── globals.css
-│ ├── layout.tsx # Root layout file
-│ └── page.tsx # Root page
-├── constants/ # Global constants
-├── lib/ # External libraries/utilities
+│   ├── _components/
+│   │   ├── _auth/           # Auth-related components
+│   │   ├── _global/         # Shared/global UI components
+│   │   └── _website/        # Website-specific components
+│   ├── (auth)/              # Auth routes
+│   ├── (pathes)/            # Dynamic/custom route paths
+│   ├── api/                 # API route handlers
+│   ├── context/             # React context providers
+│   ├── helpers/             # Utility helper functions
+│   ├── hooks/               # Custom React hooks
+│   ├── store/               # Zustand state store
+│   ├── types/               # TypeScript types
+│   ├── utilities/           # General utility functions/files
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx           # Root layout file
+│   └── page.tsx             # Root page
+├── constants/               # Global constants
+├── lib/                     # External libraries/utilities
 ├── node_modules/
 ├── public/
-├── .env.local # Environment variables
+├── .env.local               # Environment variables
 ├── .gitignore
 ├── eslint.config.mjs
-├── middleware.ts # Next.js Middleware
+├── middleware.ts            # Next.js Middleware
 ├── next-env.d.ts
 ├── next.config.ts
 ├── package-lock.json
@@ -96,8 +95,7 @@ MACHIE-PROJECT/
 ├── postcss.config.mjs
 ├── README.md
 └── tsconfig.json
-
----
+```
 
 ## 🧪 Dummy Data
 
