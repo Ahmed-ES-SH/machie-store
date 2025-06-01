@@ -2,31 +2,45 @@ import React from "react";
 import { CiBookmark, CiClock2 } from "react-icons/ci";
 import { LuTickets } from "react-icons/lu";
 import Img from "../../_global/Img";
+import Link from "next/link";
+import { formatTitle } from "@/app/helpers/helpers";
 
-export default function ArticleCard({ Article }) {
+export interface ArticleType {
+  id: number;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  image: string;
+  description: string;
+}
+
+interface Props {
+  Article: ArticleType;
+}
+
+export default function ArticleCard({ Article }: Props) {
   const ArticleDetails = [
     {
-      text: "October 9, 2021",
+      text: Article.date,
       icon: CiClock2,
     },
     {
-      text: "Smartphone",
+      text: Article.category,
       icon: CiBookmark,
     },
-    {
-      text: "phone,standard",
-      icon: LuTickets,
-    },
   ];
+
   return (
-    <div className="not-last:border-b border-gray-200 pb-4">
+    <div className="not-last:border-b block border-gray-200 pb-4 group">
       <h1
         id="title"
-        className="xl:text-3xl md:text-2xl text-xl font-light pb-3 border-b border-gray-200"
+        className="xl:text-3xl md:text-2xl text-xl font-light pb-3 border-b border-gray-200 group-hover:text-primary-blue duration-300"
       >
-        On the other hand we provide denounce with righteous
+        {Article.title}
       </h1>
-      <div className="flex items-center gap-4 mt-2">
+
+      <div className="flex items-center flex-wrap gap-4 mt-2">
         {ArticleDetails.map((item, index) => (
           <div
             key={index}
@@ -36,25 +50,32 @@ export default function ArticleCard({ Article }) {
             <p className="text-[12px]">{item.text}</p>
           </div>
         ))}
+        <div className="flex items-center gap-1 cursor-pointer not-last:border-r border-gray-300 pr-2">
+          <LuTickets className="text-primary-blue size-4" />
+          <div className="flex items-center gap-1 flex-wrap">
+            {Article.tags.map((text) => (
+              <p className="text-[12px] text-primary-blue" key={text}>
+                {text}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
+
       <Img
-        src="/images/posts/post-1.webp"
-        className="w-[90%] mt-4"
+        src={Article.image}
+        className="xl:w-[90%] w-full max-h-[70vh] mt-4"
         alt="article-img"
       />
 
-      <p className="mt-3 lg:w-3/4 w-full ">
-        Donec rhoncus quis diam sit amet faucibus. Vivamus pellentesque, sem sed
-        convallis ultricies, ante eros laoreet libero, vitae suscipit lorem
-        turpis sit amet lectus. Quisque egestas lorem ut mauris ultrices, vitae
-        sollicitudin quam facilisis. Vivamus rutrum urna non ligula tempor
-        aliquet. Fusce tincidunt est magna, id malesuada massa imperdiet ut.
-        Nunc non nisi urna. Nam
-      </p>
+      <p className="mt-3 lg:w-3/4 w-full">{Article.description}</p>
 
-      <button className="flex mt-4 items-center justify-center text-white rounded-md bg-primary-blue px-6 py-2 hover:bg-white hover:text-black hover:border-primary-blue hover:scale-110 border border-transparent duration-300">
+      <Link
+        href={`/blog/${formatTitle(Article.title)}?articleId=${Article?.id}`}
+        className="flex w-fit mt-4 items-center justify-center text-white rounded-md bg-primary-blue px-6 py-2 hover:bg-white hover:text-black hover:border-primary-blue hover:scale-110 border border-transparent duration-300"
+      >
         Read More
-      </button>
+      </Link>
     </div>
   );
 }

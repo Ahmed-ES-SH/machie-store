@@ -13,14 +13,14 @@ export default async function MiddleBart() {
         {/* Bars Icons */}
         <Barsbtn />
         {/* ////////////////// */}
-        <div id="logo">
+        <Link className="block" href={"/"} id="logo">
           <Img
             src="/logo.png"
             className="lg:w-40 w-32"
             alt="logo"
             loading="eager"
           />
-        </div>
+        </Link>
         <InputSearch />
         <div id="icons" className="flex items-center gap-4">
           {/* Signin Link */}

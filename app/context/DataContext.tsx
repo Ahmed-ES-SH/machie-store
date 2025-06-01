@@ -92,6 +92,8 @@ export default function DataProvider({ children }: ChildrenType) {
     setRandomProducts(randomSixProducts);
   }, [phones]);
 
+  console.log(phones);
+
   return (
     <DataContext.Provider
       value={{

@@ -106,7 +106,6 @@ export default function ProductCard({ product }: props) {
       <div className="relative overflow-hidden bg-gray-100">
         <Img
           src={
-            product.thumbnail ||
             product.images?.[0] ||
             "https://via.placeholder.com/300x200?text=No+Image"
           }

@@ -1,147 +1,171 @@
 "use client";
-import React, { useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
 import Img from "../../_global/Img";
+import { FaTimes } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
+import { BsLayoutTextSidebar } from "react-icons/bs";
+import { useVariables } from "@/app/context/VariablesContext";
+import InputSearchArticles from "./InputSearchArticles";
+import Link from "next/link";
+import { formatTitle } from "@/app/helpers/helpers";
+import { articles } from "@/constants/Articles";
 
 export default function BlogSidebar() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const { width } = useVariables();
+
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const categories = [
-    { name: "Camera", count: 5 },
+    { name: "Innovation", count: 5 },
     { name: "Smartphone", count: 8 },
-    { name: "Tablet", count: 3 },
-    { name: "Watches", count: 12 },
+    { name: "Creator Tools", count: 3 },
+    { name: "Foldables", count: 12 },
+    { name: "Gaming", count: 1 },
+    { name: "Android", count: 4 },
   ];
 
   const tags = [
-    "android",
-    "Pixel",
-    "australia",
     "iphone",
-    "photo",
-    "pro",
-    "standard",
-    "thumbnailpost",
+    "apple",
+    "technology",
+    "samsung",
+    "galaxy",
+    "google",
+    "oneplus",
+    "huawei",
+    "xiaomi",
+    "sony",
+    "nothing",
+    "motorola",
+    "gaming",
   ];
 
-  const popularPosts = [
-    {
-      id: 1,
-      category: "WATCHES",
-      title: "But I must explain to you how all this mistaken idea",
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&h=100&fit=crop&crop=entropy&auto=format",
-    },
-    {
-      id: 2,
-      category: "CAMERA",
-      title: "The Problem With Typefaces on the Web",
-      image:
-        "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=150&h=100&fit=crop&crop=entropy&auto=format",
-    },
-    {
-      id: 3,
-      category: "TABLET",
-      title: "English Breakfast Tea With Tasty Donut Desserts",
-      image:
-        "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=150&h=100&fit=crop&crop=entropy&auto=format",
-    },
-  ];
+  const ToggleFilter = () => {
+    setShowSidebar((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (width > 1280) {
+      setShowSidebar(true);
+    }
+  }, [width]);
 
   return (
-    <div className="xl:flex-1 sticky top-2 right-0 bg-white">
-      {/* Search Section */}
-      <div className="mb-8">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-none text-sm focus:outline-none focus:border-gray-400"
-          />
-          <button className="absolute right-0 top-0 h-full px-3 bg-gray-100 border-l border-gray-300 hover:bg-gray-200 transition-colors">
-            <FiSearch className="w-4 h-4 text-gray-500" />
-          </button>
-        </div>
-      </div>
+    <>
+      <AnimatePresence>
+        {showSidebar && (
+          <motion.div
+            initial={{ x: -500, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -500, opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="xl:flex-1 xl:sticky fixed top-0  left-0 xl:top-4 xl:right-0 bg-white max-xl:px-4 max-xl:py-12 overflow-y-auto max-md:w-[80%] custom-scrollbar max-xl:h-screen max-xl:w-[420px]"
+          >
+            <FaTimes
+              onClick={ToggleFilter}
+              className=" absolute top-3 right-4 text-red-400 hover:text-red-500 hover:scale-110 cursor-pointer duration-300"
+            />
+            <InputSearchArticles />
 
-      {/* Categories Section */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
-          Categories
-        </h3>
-        <div className="space-y-3">
-          {categories.map((category, index) => (
-            <div key={index} className="flex items-center justify-between py-1">
-              <a
-                href="#"
-                className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
-              >
-                {category.name}
-              </a>
-              <span className="text-gray-500 text-sm">({category.count})</span>
+            {/* Categories Section */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                Categories
+              </h3>
+              <div className="space-y-3">
+                {categories.map((category, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between py-1"
+                  >
+                    <Link
+                      href={`/blog/categories/${formatTitle(category.name)}`}
+                      className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+                    >
+                      {category.name}
+                    </Link>
+                    <span className="text-gray-500 text-sm">
+                      ({category.count})
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Tags Section */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
-          Tags
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag, index) => (
-            <a
-              key={index}
-              href="#"
-              className="px-3 py-1 bg-gray-100 text-gray-700 text-sm hover:bg-gray-200 transition-colors border border-gray-200"
-            >
-              {tag}
-            </a>
-          ))}
-        </div>
-      </div>
+            {/* Tags Section */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                Tags
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag, index) => (
+                  <Link
+                    key={index}
+                    href={`/blog/tags/${formatTitle(tag)}`}
+                    className="px-3 py-1 bg-gray-100 text-gray-700 text-sm hover:bg-gray-200 transition-colors border border-gray-200"
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-      {/* Popular Posts Section */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
-          Popular Posts
-        </h3>
-        <div className="space-y-4">
-          {popularPosts.map((post) => (
-            <div key={post.id} className="flex gap-3">
-              <div className="w-16 h-12 flex-shrink-0 overflow-hidden">
+            {/* Popular Posts Section */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">
+                Popular Posts
+              </h3>
+              <div className="space-y-4">
+                {articles.slice(0, 3).map((post) => (
+                  <Link
+                    href={`/blog/${formatTitle(post.title)}?articleId=${
+                      post.id
+                    }`}
+                    key={post.tags[0]}
+                    className="flex gap-3"
+                  >
+                    <div className="w-16 h-12 flex-shrink-0 overflow-hidden">
+                      <Img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-medium text-blue-600 mb-1 uppercase tracking-wide">
+                        {post.category}
+                      </div>
+                      <h4 className="text-sm text-gray-900 leading-tight hover:text-gray-700 cursor-pointer">
+                        {post.title}
+                      </h4>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Samsung Advertisement */}
+            <div className="bg-gray-50 text-center py-8 px-6">
+              <div className="relative">
                 <Img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
+                  src="/images/widget-banner.jpg"
+                  alt="Samsung Galaxy S24 5G"
+                  className="w-full  object-cover"
                 />
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-xs font-medium text-blue-600 mb-1 uppercase tracking-wide">
-                  {post.category}
-                </div>
-                <h4 className="text-sm text-gray-900 leading-tight hover:text-gray-700 cursor-pointer">
-                  {post.title}
-                </h4>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Samsung Advertisement */}
-      <div className="bg-gray-50 text-center py-8 px-6">
-        <div className="relative">
-          <Img
-            src="/images/widget-banner.jpg"
-            alt="Samsung Galaxy S24 5G"
-            className="w-full  object-cover"
-          />
+      {!showSidebar && (
+        <div
+          onClick={ToggleFilter}
+          className="w-14 h-14 z-[999] rounded-full fixed bottom-6 right-4 flex items-center justify-center cursor-pointer bg-primary-blue hover:bg-sky-500 text-white duration-300"
+        >
+          <BsLayoutTextSidebar className="size-8" />
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

@@ -1,17 +1,13 @@
-import ArticleCard from "@/app/_components/_website/_blog/ArticleCard";
-import BlogSidebar from "@/app/_components/_website/_blog/BlogSidebar";
+import ArticlesComponent from "@/app/_components/_website/_blog/ArticlesComponent";
+import { Metadata } from "next";
 import React from "react";
 
+export const metadata: Metadata = {
+  title: "Machic – Electronics Store ECommerce - Blog",
+  description:
+    "Explore the latest articles, reviews, and news about cutting-edge electronics, gadgets, and tech trends at Machic's blog. Stay updated with expert insights and buying guides for your next electronic purchase.",
+};
+
 export default function BlogPage() {
-  const article = {};
-  return (
-    <div className="c-container mt-12 flex items-start gap-4 ">
-      <div className="flex-1/2 flex flex-col gap-12 items-start">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <ArticleCard key={index} Article={article} />
-        ))}
-      </div>
-      <BlogSidebar />
-    </div>
-  );
+  return <ArticlesComponent />;
 }
