@@ -9,6 +9,7 @@ import SideLang from "./_sidebarmobail/SideMo";
 import SlideLinks from "./_sidebarmobail/SlideLinks";
 import Img from "../../_global/Img";
 import { useVariables } from "@/app/context/VariablesContext";
+import { PiSignIn } from "react-icons/pi";
 
 // main component ///////////////////////////////////////////////////////////////////////
 
@@ -122,6 +123,15 @@ export default function MobailSideBar() {
                         <FaCaretRight />
                       </div>
                     </li>
+                    <li className="w-full pt-2 border-t border-gray-300">
+                      <Link
+                        href={"/signin"}
+                        className="flex items-center justify-between w-full pt-4 gap-3 text-primary-blue hover:text-blue-600 duration-300 px-4 "
+                      >
+                        <p>Sign in</p>
+                        <PiSignIn className="size-6" />
+                      </Link>
+                    </li>
                     <li>
                       <p className="text-xs text-gray-500 leading-relaxed p-2 pt-6 border-t border-gray-300">
                         Copyright byearl © Machic WordPress Theme. All right
@@ -129,6 +139,10 @@ export default function MobailSideBar() {
                         <span className="font-medium text-gray-600">
                           Ahmed Ismail
                         </span>{" "}
+                        and The Design From{" "}
+                        <span className="font-medium text-gray-600">
+                          klbtheme
+                        </span>
                       </p>
                     </li>
                   </ul>
