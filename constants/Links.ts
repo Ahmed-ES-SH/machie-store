@@ -99,6 +99,7 @@ export const mainlinksmobail = [
   },
   {
     title: "Blog",
+    to: "/blog",
     icon: FaBlog,
   },
   {

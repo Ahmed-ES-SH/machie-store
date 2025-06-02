@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { FaCaretRight, FaTimes } from "react-icons/fa";
-import { mainlinksmobail } from "@/constants/Links";
+import { mainlinks } from "@/constants/Links";
 import SidebarSubLinks from "./_sidebarmobail/SidebarSubLinks";
 import SideLang from "./_sidebarmobail/SideMo";
 import SlideLinks from "./_sidebarmobail/SlideLinks";
@@ -82,14 +82,14 @@ export default function MobailSideBar() {
                 {/* //////////////// main links */}
                 <div className="pb-3 border-b border-gray-300">
                   <ul className="flex flex-col items-start gap-3 relative">
-                    <li
+                    {/* <li
                       onClick={() => setsubmenue("shop")}
                       className="cursor-pointer flex items-center  p-4 justify-between w-full pt-4 gap-3  px-4 "
                     >
                       <p>shop</p>
                       <FaCaretRight />
-                    </li>
-                    {mainlinksmobail.map((link, index) => (
+                    </li> */}
+                    {mainlinks.map((link, index) => (
                       <Link
                         href={link.to ? link.to : "#"}
                         key={index}

@@ -6,12 +6,20 @@ import { BsEye } from "react-icons/bs";
 import Img from "../../_global/Img";
 import Link from "next/link";
 import { formatTitle } from "@/app/helpers/helpers";
+import { useWishlistStore } from "@/app/store/WishlistStoreStore";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 
 interface props {
   product: ProductType;
 }
 
 export default function MiniProductCard({ product }: props) {
+  const { wishlistItems, addToWishlist, removeFromWishlist } =
+    useWishlistStore();
+
+  const isInWishList =
+    !!product && wishlistItems.some((item) => item.id === product.id);
+
   const [isHovered, setIsHovered] = useState(false);
   const isTopProduct = product.rating >= 4.5;
   const discountedPrice =
@@ -88,22 +96,37 @@ export default function MiniProductCard({ product }: props) {
 
         {/* Side icons on hover */}
         <div className="absolute right-3 top-16 transform -translate-y-1/2 flex flex-col items-center gap-2 transition-all duration-300">
-          <button className="z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200">
-            <BiHeart
-              size={18}
-              className="text-gray-400 transition-colors duration-200"
-            />
-          </button>
+          {/* Heart icon */}
           <button
-            className={`p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-all duration-300 ${
+            onClick={
+              isInWishList
+                ? () => removeFromWishlist(product.id)
+                : () => addToWishlist(product)
+            }
+            className={`z-10 p-2  rounded-full shadow-md  transition-colors duration-200 ${
+              isInWishList
+                ? "bg-red-300 hover:bg-red-400 text-white"
+                : "hover:bg-gray-100 bg-white text-gray-400"
+            }`}
+          >
+            {isInWishList ? (
+              <IoHeartDislikeOutline size={18} />
+            ) : (
+              <BiHeart size={18} />
+            )}
+          </button>
+          <Link
+            href={`/products/${formatTitle(product.title)}?productId=${
+              product.id
+            }`}
+            className={`p-2 block bg-white rounded-full shadow-md hover:bg-gray-100 transition-all duration-300 ${
               isHovered
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-8"
             }`}
-            title="Quick View"
           >
             <BsEye size={16} className="text-gray-600" />
-          </button>
+          </Link>
         </div>
       </div>
 

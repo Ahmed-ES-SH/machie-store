@@ -42,16 +42,16 @@ export default function CartProducts() {
       onMouseLeave={handleMouseLeave}
     >
       {/* Cart Icon and Summary */}
-      <div className="flex items-center gap-4 cursor-pointer">
+      <div className="flex items-center gap-4 cursor-pointer max-md:mr-2">
         <div className="relative">
-          <BsMinecart className="size-7 text-icon-color" />
+          <BsMinecart className="lg:size-7 size-6 text-icon-color" />
           {cartItems.length > 0 && (
             <div className="w-4 h-4 absolute -top-1 -right-2 bg-primary-yellow flex items-center justify-center text-gray-950 text-[10px] font-bold rounded-full">
               {cartItems.length}
             </div>
           )}
         </div>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start max-md:hidden">
           <p className="text-[11px] text-icon-color">Total</p>
           <p className="text-[15px] font-semibold">${totalPrice.toFixed(2)}</p>
         </div>

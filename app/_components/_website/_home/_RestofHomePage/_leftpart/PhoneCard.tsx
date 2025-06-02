@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Img from "@/app/_components/_global/Img";
+import Link from "next/link";
 
 export default function PhoneCard() {
   return (
@@ -15,9 +16,12 @@ export default function PhoneCard() {
           <p className=" font-bold py-1 text-[12px] max-md:text-[12px]">
             Dont't miss the last opportunity
           </p>
-          <button className="btn-shop my-3 py-2 px-3 bg-sky-400 rounded-full  text-white">
+          <Link
+            href={"/"}
+            className="btn-shop block w-fit hover:bg-sky-600 duration-300 my-3 py-2 px-3 bg-sky-400 rounded-full  text-white"
+          >
             Shop now
-          </button>
+          </Link>
         </div>
 
         <Img

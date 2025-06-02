@@ -123,18 +123,18 @@ This allows rapid development and UI testing before backend integration.
 
 # 3. Install dependencies
 
-  ```bash
+```bash
 npm install
 
-   ```
+```
 
 # 4. Start the development server
 
 ```bash
 npm run dev
-  ```
-
+```
 
 ## 👨‍💻 Author
+
 Crafted with ❤️ by [Ahmed Ismail]
 Feel free to connect with me or contribute to improve this project!

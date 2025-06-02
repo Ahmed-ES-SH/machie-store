@@ -8,6 +8,7 @@ import { useListToggle } from "@/app/store/ListToggle";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import Link from "next/link";
 
 export default function HeroSlider() {
   const { isOpen } = useListToggle();
@@ -62,9 +63,12 @@ export default function HeroSlider() {
                     </span>
                     off !
                   </p>
-                  <button className="btn-shop py-4 px-8 bg-primary-blue rounded-full text-white hover:bg-cyan-500 duration-300">
+                  <Link
+                    href={"/shop"}
+                    className="btn-shop block w-fit py-4 px-8 bg-primary-blue rounded-full text-white hover:bg-cyan-500 duration-300"
+                  >
                     Shop now
-                  </button>
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>

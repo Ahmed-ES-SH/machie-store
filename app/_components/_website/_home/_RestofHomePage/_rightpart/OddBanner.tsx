@@ -2,6 +2,7 @@
 "use client";
 import Img from "@/app/_components/_global/Img";
 import { useVariables } from "@/app/context/VariablesContext";
+import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 
 interface props {
@@ -56,9 +57,12 @@ export default function OddBanner({ imgsrc }: props) {
           <p className="font-bold py-1 text-[12px] max-md:text-[12px]">
             Dont't miss the last opportunity
           </p>
-          <button className="btn-shop py-2 px-4 bg-primary-blue hover:bg-sky-500 duration-300 rounded-full text-white">
+          <Link
+            href={"/shop"}
+            className="btn-shop block w-fit py-2 px-4 bg-primary-blue hover:bg-sky-500 duration-300 rounded-full text-white"
+          >
             Shop now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

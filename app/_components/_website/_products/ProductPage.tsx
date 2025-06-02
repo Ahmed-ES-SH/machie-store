@@ -122,6 +122,10 @@ export default function ProductPage() {
     }
   }, [product]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) return <Loading />;
 
   if (!product)

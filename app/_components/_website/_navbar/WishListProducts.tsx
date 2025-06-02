@@ -44,9 +44,9 @@ export default function WishListProducts() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         id="favoriteList"
-        className="relative cursor-pointer max-xl:hidden"
+        className="relative cursor-pointer "
       >
-        <AiOutlineHeart className="size-7 text-icon-color" />
+        <AiOutlineHeart className="size-7  text-icon-color" />
         {wishlistItems.length > 0 && (
           <div className="min-w-fit w-4 h-4 absolute -top-1 -right-2 bg-primary-yellow flex items-center justify-center text-gray-950 text-[14px]  rounded-full p-1">
             {wishlistItems.length}
@@ -61,7 +61,7 @@ export default function WishListProducts() {
               animate={{ opacity: 1, y: 0, scale: 1.02 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute right-0  mt-4 w-[340px] bg-white shadow-2xl rounded-xl p-4 space-y-3 z-[99999]"
+              className="absolute right-0 max-md:-right-10  mt-4 w-[340px] bg-white shadow-2xl rounded-xl p-4 space-y-3 z-[99999]"
             >
               <h4 className="text-lg font-semibold text-gray-800">
                 WishList Items

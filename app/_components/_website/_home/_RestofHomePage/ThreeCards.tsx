@@ -37,7 +37,7 @@ export default function ThreeCards() {
                 </ul>
                 <Link
                   className="whitespace-nowrap text-[14px] mt-8"
-                  href={`/cell-phones`}
+                  href={`/cellphones`}
                 >
                   <div className="text-primary-blue hover:text-cyan-500 duration-300 cursor-pointer flex items-center gap-2">
                     <p>{ele.link}</p>

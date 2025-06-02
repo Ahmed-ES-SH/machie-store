@@ -2,6 +2,7 @@
 import { useListToggle } from "@/app/store/ListToggle";
 import { menuData } from "@/constants/constantsDetails";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { MdChevronRight } from "react-icons/md";
 
@@ -24,7 +25,8 @@ export default function HeroList() {
         >
           <div className="divide-y divide-gray-100">
             {menuData.map((item, index) => (
-              <div
+              <Link
+                href="/shop"
                 key={index}
                 className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors duration-200"
               >
@@ -42,7 +44,7 @@ export default function HeroList() {
                 {item.hasArrow && (
                   <MdChevronRight className="w-5 h-5 text-gray-400" />
                 )}
-              </div>
+              </Link>
             ))}
           </div>
         </motion.div>

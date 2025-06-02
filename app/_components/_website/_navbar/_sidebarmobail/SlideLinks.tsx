@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaAngleDown, FaBars } from "react-icons/fa";
 import { menuData } from "@/constants/constantsDetails";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
 interface propsType {
   width: number;
@@ -53,7 +54,8 @@ export default function SlideLinks({ width, posation }: propsType) {
             >
               <div className="divide-y divide-gray-100">
                 {menuData.map((item, index) => (
-                  <div
+                  <Link
+                    href={"/shop"}
                     key={index}
                     className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors duration-200"
                   >
@@ -68,7 +70,7 @@ export default function SlideLinks({ width, posation }: propsType) {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </motion.div>
