@@ -33,10 +33,10 @@ export async function POST(request: Request) {
           quantity,
         },
       ],
-      success_url: `http://localhost:3000/paymentsuccess?payment_status=success&product=${encodeURIComponent(
+      success_url: `https://machie-store.vercel.app/paymentsuccess?payment_status=success&product=${encodeURIComponent(
         productName
       )}&amount=${amount}&productLength=${quantity}`,
-      cancel_url: `http://localhost:3000/paymentfaild?payment_status=success&amount=${amount}&productLength=${quantity}`,
+      cancel_url: `https://machie-store.vercel.app/paymentfaild?payment_status=success&amount=${amount}&productLength=${quantity}`,
     });
 
     // Return the session ID to the client
