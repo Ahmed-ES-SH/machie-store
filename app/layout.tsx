@@ -6,7 +6,7 @@ import Navbar from "./_components/_global/Navbar";
 import MobailSideBar from "./_components/_website/_navbar/MobileSidebar";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Footer } from "./_components/_website/_footer/footer";
+import { Footer } from "./_components/_website/_footer/Footer";
 
 const RobotoFont = Roboto({
   variable: "--font-roboto",
