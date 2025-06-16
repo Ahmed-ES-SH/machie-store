@@ -31,7 +31,7 @@ export default function CartComponent() {
   const total = subtotal;
 
   return (
-    <div className="c-container p-6 bg-gray-50 min-h-screen">
+    <div className="c-container lg:p-6 p-2 bg-gray-50 min-h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2">
@@ -56,25 +56,31 @@ export default function CartComponent() {
             {/* Table Header */}
             <div className="grid grid-cols-12 gap-4 p-6 border-b border-gray-200 text-sm font-medium text-gray-600 uppercase tracking-wider">
               <div className="col-span-6">Product</div>
-              <div className="col-span-2 text-center">Price</div>
-              <div className="col-span-2 text-center">Quantity</div>
-              <div className="col-span-2 text-center">Subtotal</div>
+              <div className="col-span-2 max-md:col-span-6 text-center">
+                Price
+              </div>
+              <div className="col-span-2 text-center max-md:hidden">
+                Quantity
+              </div>
+              <div className="col-span-2 text-center max-md:hidden">
+                Subtotal
+              </div>
             </div>
 
             {/* Cart Items */}
             <AnimatePresence>
-              <div className="w-full h-[60vh] overflow-y-auto custom-scrollbar">
+              <div className="w-full max-h-[60vh] overflow-auto custom-scrollbar">
                 {cartItems.map((item, index) => (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="grid grid-cols-12 gap-4 p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors group"
+                    transition={{ delay: index * 0.05 }}
+                    className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-4 md:p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors group"
                   >
                     {/* Product Info */}
-                    <div className="col-span-6 flex items-center space-x-4">
+                    <div className="flex items-center space-x-4 w-full md:w-1/2">
                       <Img
                         src={item.images[0]}
                         className="w-16 object-contain"
@@ -83,54 +89,61 @@ export default function CartComponent() {
                         <h3 className="font-medium text-gray-900 truncate">
                           {item.title}
                         </h3>
+                        {/* Optional: Show price on small screens */}
+                        <p className="text-gray-500 text-sm md:hidden mt-1">
+                          ${item.price.toFixed(2)}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Price */}
-                    <div className="col-span-2 flex items-center justify-center">
-                      <span className="text-gray-600">
-                        ${item.price.toFixed(2)}
-                      </span>
-                    </div>
+                    {/* Price, Quantity, Subtotal */}
+                    <div className="flex flex-wrap md:flex-nowrap justify-between md:justify-center items-center gap-4 w-full md:w-1/2">
+                      {/* Price (hidden on mobile) */}
+                      <div className="hidden md:flex items-center justify-center w-24">
+                        <span className="text-gray-600">
+                          ${item.price.toFixed(2)}
+                        </span>
+                      </div>
 
-                    {/* Quantity Controls */}
-                    <div className="col-span-2 flex items-center justify-center">
-                      <div className="flex items-center bg-gray-100 rounded-lg">
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => decreaseQuantity(item.id)}
-                          className="p-2 hover:bg-gray-200 rounded-l-lg transition-colors"
-                        >
-                          <FiMinus className="w-4 h-4" />
-                        </motion.button>
-                        <span className="px-4 py-2 font-medium min-w-[3rem] text-center">
-                          {item.quantity}
+                      {/* Quantity Controls */}
+                      <div className="flex items-center justify-center">
+                        <div className="flex items-center bg-gray-100 rounded-lg">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => decreaseQuantity(item.id)}
+                            className="p-2 hover:bg-gray-200 rounded-l-lg transition-colors"
+                          >
+                            <FiMinus className="w-4 h-4" />
+                          </motion.button>
+                          <span className="px-4 py-2 font-medium min-w-[3rem] text-center">
+                            {item.quantity}
+                          </span>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => increaseQuantity(item)}
+                            className="p-2 hover:bg-gray-200 rounded-r-lg transition-colors"
+                          >
+                            <FiPlus className="w-4 h-4" />
+                          </motion.button>
+                        </div>
+                      </div>
+
+                      {/* Subtotal + Remove */}
+                      <div className="flex items-center justify-center gap-3">
+                        <span className="font-semibold text-gray-900 whitespace-nowrap">
+                          ${(item.price * item.quantity).toFixed(2)}
                         </span>
                         <motion.button
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.1, rotate: 90 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => increaseQuantity(item.id)}
-                          className="p-2 hover:bg-gray-200 rounded-r-lg transition-colors"
+                          onClick={() => removeFromCart(item.id)}
+                          className="p-1 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                         >
-                          <FiPlus className="w-4 h-4" />
+                          <FiX className="w-4 h-4" />
                         </motion.button>
                       </div>
-                    </div>
-
-                    {/* Subtotal & Remove */}
-                    <div className="col-span-2 flex items-center justify-center space-x-3">
-                      <span className="font-semibold text-gray-900">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </span>
-                      <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => removeFromCart(item.id)}
-                        className="p-1 text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                      >
-                        <FiX className="w-4 h-4" />
-                      </motion.button>
                     </div>
                   </motion.div>
                 ))}

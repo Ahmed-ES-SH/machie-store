@@ -10,11 +10,14 @@ import SlideLinks from "./_sidebarmobail/SlideLinks";
 import Img from "../../_global/Img";
 import { useVariables } from "@/app/context/VariablesContext";
 import { PiSignIn } from "react-icons/pi";
+import { useRouter } from "next/navigation";
 
 // main component ///////////////////////////////////////////////////////////////////////
 
 export default function MobailSideBar() {
   const { mobailMenu, setMobailMenu, width } = useVariables();
+  const router = useRouter();
+
   const [submenue, setsubmenue] = useState("");
 
   const sidebarVariants = {
@@ -40,10 +43,16 @@ export default function MobailSideBar() {
     setMobailMenu(false);
   };
 
+  const handleGo = (direct: string) => {
+    router.push(direct);
+    handleCloseMenu();
+  };
+
   useEffect(() => {
     if (width >= 1280) {
       handleCloseMenu();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
   return (
@@ -91,14 +100,14 @@ export default function MobailSideBar() {
                       <FaCaretRight />
                     </li> */}
                     {mainlinks.map((link, index) => (
-                      <Link
-                        href={link.to ? link.to : "#"}
+                      <div
                         key={index}
-                        className="flex items-center justify-between w-full pt-4 gap-3  px-4 "
+                        onClick={() => handleGo(link.to ?? "#")}
+                        className="flex items-center justify-between w-full cursor-pointer hover:text-primary-blue duration-300 pt-4 gap-3  px-4 "
                       >
                         <p>{link.title}</p>
                         <link.icon />
-                      </Link>
+                      </div>
                     ))}
                   </ul>
                 </div>
@@ -135,11 +144,11 @@ export default function MobailSideBar() {
                     <li>
                       <p className="text-xs text-gray-500 leading-relaxed p-2 pt-6 border-t border-gray-300">
                         Copyright byearl © Machic WordPress Theme. All right
-                        reserved. Powered by{" "}
+                        reserved. Develop by{" "}
                         <span className="font-medium text-gray-600">
                           Ahmed Ismail
                         </span>{" "}
-                        and The Design From{" "}
+                        and The UI/UX From{" "}
                         <span className="font-medium text-gray-600">
                           klbtheme
                         </span>

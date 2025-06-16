@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   FaStar,
@@ -26,17 +26,23 @@ import { BiStar } from "react-icons/bi";
 import { RiProductHuntLine } from "react-icons/ri";
 import ErrorMessage from "@/app/_components/_global/ErrorMessage";
 import SliderOfRecommendedProducts from "./SliderOfRecommendedProducts";
+import { useCartStore } from "@/app/store/CartStore";
+import { useWishlistStore } from "@/app/store/WishlistStoreStore";
 
 export default function ProductPage() {
+  const { addToCart, increaseQuantity, decreaseQuantity, cartItems } =
+    useCartStore();
+  const { addToWishlist, wishlistItems } = useWishlistStore();
   const searchParams = useSearchParams();
   const productId = searchParams.get("productId");
   const { data: product, loading } = useFetchData<ProductType>(
     `/products/${productId}`
   );
+  const productQuantity = useMemo(() => {
+    return cartItems.find((item) => item.id === product?.id)?.quantity || 1;
+  }, [cartItems, product?.id]);
 
   const [selectedImage, setSelectedImage] = useState<string>("");
-
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [error, setError] = useState(false);
@@ -55,13 +61,16 @@ export default function ProductPage() {
     { label: "Brand", value: `${product?.brand}` },
   ];
 
-  const handleQuantityChange = (action: string) => {
-    if (action === "increase") {
-      setQuantity((prev) => prev + 1);
-    } else if (action === "decrease" && quantity > 1) {
-      setQuantity((prev) => prev - 1);
-    }
-  };
+  const handleQuantityChange = useCallback(
+    (action: string, product: ProductType) => {
+      if (action === "increase") {
+        increaseQuantity(product);
+      } else if (action === "decrease" && productQuantity > 1) {
+        decreaseQuantity(product?.id);
+      }
+    },
+    [increaseQuantity, decreaseQuantity, productQuantity]
+  );
 
   // Render stars
   const renderStars = () => {
@@ -125,6 +134,23 @@ export default function ProductPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      const isInWishlist = wishlistItems.find((item) => item.id == product.id);
+      if (isInWishlist) {
+        setIsWishlisted(true);
+      }
+    }
+  }, [product, wishlistItems]);
+
+  const handleAddToWishList = (product: ProductType) => {
+    const isInWishlist = wishlistItems.find((item) => item.id == product.id);
+    if (!isInWishlist) {
+      addToWishlist(product);
+      setIsWishlisted(true);
+    }
+  };
 
   if (loading) return <Loading />;
 
@@ -284,18 +310,18 @@ export default function ProductPage() {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => handleQuantityChange("decrease")}
+                      onClick={() => handleQuantityChange("decrease", product)}
                       className="p-3 hover:bg-gray-100 transition-colors"
                     >
                       <FaMinus className="text-gray-600" />
                     </motion.button>
                     <span className="px-4 py-3 font-medium text-lg">
-                      {quantity}
+                      {productQuantity}
                     </span>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => handleQuantityChange("increase")}
+                      onClick={() => handleQuantityChange("increase", product)}
                       className="p-3 hover:bg-gray-100 transition-colors"
                     >
                       <FaPlus className="text-gray-600" />
@@ -304,6 +330,7 @@ export default function ProductPage() {
 
                   {/* Add to Cart Button */}
                   <motion.button
+                    onClick={() => addToCart(product)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
@@ -318,7 +345,7 @@ export default function ProductPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setIsWishlisted(!isWishlisted)}
+                    onClick={() => handleAddToWishList(product)}
                     className={`flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors ${
                       isWishlisted
                         ? "border-red-500 text-red-500 bg-red-50"

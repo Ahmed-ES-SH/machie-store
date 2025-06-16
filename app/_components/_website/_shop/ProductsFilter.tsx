@@ -38,12 +38,14 @@ export default function ProductsFilter() {
 
     if (checked) {
       setSelectedCategories([...selectedCategories, selectedCat]);
+      if (width < 1280) setShowFilter(false);
     } else {
       setSelectedCategories(
         selectedCategories.filter(
           (category: categoryType) => category.name !== selectedCat.name
         )
       );
+      if (width < 1280) setShowFilter(false);
     }
   };
 

@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { FaAngleDown, FaBars } from "react-icons/fa";
 import { menuData } from "@/constants/constantsDetails";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useVariables } from "@/app/context/VariablesContext";
 
 interface propsType {
   width: number;
@@ -12,7 +13,15 @@ interface propsType {
 }
 
 export default function SlideLinks({ width, posation }: propsType) {
+  const { setMobailMenu } = useVariables();
+  const router = useRouter();
+
   const [open, setopen] = useState(false);
+
+  const handleGo = (direct: string) => {
+    router.push(direct);
+    setMobailMenu(false);
+  };
 
   return (
     <>
@@ -54,8 +63,8 @@ export default function SlideLinks({ width, posation }: propsType) {
             >
               <div className="divide-y divide-gray-100">
                 {menuData.map((item, index) => (
-                  <Link
-                    href={"/shop"}
+                  <div
+                    onClick={() => handleGo("/shop")}
                     key={index}
                     className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors duration-200"
                   >
@@ -70,7 +79,7 @@ export default function SlideLinks({ width, posation }: propsType) {
                         </span>
                       )}
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </motion.div>

@@ -90,7 +90,9 @@ export default function WishListProducts() {
                       />
                       <div className="flex-1">
                         <p className="text-sm font-medium truncate">
-                          {item.title}
+                          {item.title.length > 10
+                            ? item.title.slice(0, 10) + "..."
+                            : item.title}
                         </p>
                         <p className="text-xs text-gray-500">${item.price}</p>
                       </div>
