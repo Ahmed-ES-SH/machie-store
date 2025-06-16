@@ -5,7 +5,7 @@ import { BrandLinks } from "./brand-links";
 import Img from "../../_global/Img";
 import SubscribeSection from "../_home/SubscribeSection";
 
-export default function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
