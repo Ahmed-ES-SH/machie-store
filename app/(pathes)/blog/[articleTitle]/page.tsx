@@ -5,7 +5,7 @@ import { articles } from "@/constants/Articles";
 import React, { Suspense } from "react";
 
 export async function generateMetadata({ searchParams }: any) {
-  const articleId = searchParams.articleId;
+  const { articleId } = await searchParams;
   const article = articles.find(
     (article) => article.id.toString() === articleId
   );

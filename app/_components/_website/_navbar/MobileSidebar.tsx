@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, spring } from "framer-motion";
 import Link from "next/link";
 import { FaCaretRight, FaTimes } from "react-icons/fa";
 import { mainlinks } from "@/constants/Links";
@@ -33,7 +33,7 @@ export default function MobailSideBar() {
   };
 
   const transitionSettings = {
-    type: "spring",
+    type: spring,
     stiffness: 500,
     damping: 40,
     duration: 0.3,

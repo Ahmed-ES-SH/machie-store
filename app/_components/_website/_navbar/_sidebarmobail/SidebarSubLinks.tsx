@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, spring } from "framer-motion";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import {
   linksprodctdetail,
@@ -31,7 +31,7 @@ export default function SidebarSubLinks({
   };
 
   const transitionSettings = {
-    type: "spring",
+    type: spring,
     stiffness: 500,
     damping: 40,
     duration: 0.3,

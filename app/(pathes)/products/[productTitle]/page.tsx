@@ -5,7 +5,7 @@ import FetchData from "@/app/hooks/FetchData";
 import React, { Suspense } from "react";
 
 export async function generateMetadata({ searchParams }: any) {
-  const { productId } = searchParams;
+  const { productId } = await searchParams;
   const product = await FetchData(`/products/${productId}`, false);
 
   return {
